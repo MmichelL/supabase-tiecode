@@ -582,6 +582,19 @@ services:
         "/app/bin/migrate && /app/bin/supavisor eval \"$$(cat /etc/pooler/pooler.exs)\" && /app/bin/server"
       ]
 
+  migrator:
+    container_name: supabase-migrator
+    image: postgres:16-alpine
+    restart: "no"
+    depends_on:
+      supabase-db:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./migrations:/migrations:ro
+    command: /bin/sh -c "chmod +x /migrations/run-migrations.sh && /migrations/run-migrations.sh"
+
 volumes:
   db-config:
   deno-cache:
