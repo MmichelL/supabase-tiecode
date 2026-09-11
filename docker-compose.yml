@@ -587,7 +587,7 @@ services:
     image: postgres:16-alpine
     restart: "no"
     depends_on:
-      supabase-db:
+      db:
         condition: service_healthy
     environment:
       PGPASSWORD: ${POSTGRES_PASSWORD}
