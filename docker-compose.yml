@@ -592,8 +592,8 @@ services:
     environment:
       PGPASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - ./migrations:/migrations:ro
-    command: /bin/sh -c "chmod +x /migrations/run-migrations.sh && /migrations/run-migrations.sh"
+      - ./migrations:/migrations
+    command: /bin/sh /migrations/run-migrations.sh
 
 volumes:
   db-config:
